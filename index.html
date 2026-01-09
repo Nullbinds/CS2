@@ -37,6 +37,7 @@
             height: 100%;
             object-fit: cover;
             opacity: 0.3;
+            pointer-events: none;
         }
 
         .video-fallback {
@@ -45,7 +46,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #1A1A1A 0%, #2A1A2A 100%);
+            background: linear-gradient(135deg, #1A1A1A 0%, #2A1A2A 50%, #1A2A2A 100%);
             z-index: -2;
         }
 
@@ -479,7 +480,7 @@
     <div class="app-container">
         <div class="main-content" id="mainContent">
             <div class="header">
-                <h1>CS2 CONFIG ART</h1>
+                <h1>CS2 Console Logo Generator</h1>
                 <p class="subtitle">nullbinds.com</p>
             </div>
 
@@ -745,6 +746,17 @@
         document.getElementById('fromColor').addEventListener('input', updateGradient);
         document.getElementById('toColor').addEventListener('input', updateGradient);
         updateGradient();
+
+        // Ensure video plays on page load
+        window.addEventListener('DOMContentLoaded', (event) => {
+            const video = document.getElementById('bg-video');
+            if (video) {
+                video.muted = true;
+                video.play().catch(e => {
+                    console.log('Video autoplay failed:', e);
+                });
+            }
+        });
     </script>
 </body>
 </html>
