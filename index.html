@@ -656,7 +656,6 @@
                 // Escape quotes and backslashes for CS2
                 const escapedLine = line.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
                 
-                output += `echoln "                                                                                                                                             "\n`;
                 output += `log_color General ${color}\n`;
                 output += `echoln "${escapedLine}"\n`;
             });
