@@ -639,9 +639,9 @@
             
             // Add log_flags at the beginning if suppress spam is enabled
             if (suppressSpam) {
-                output += 'log_flags Console +DoNotecholn\n';
-                output += 'log_flags General -DoNotecholn\n';
-                output += 'log_flags InputService +DoNotecholn\n\n';
+                output += 'log_flags Console +DoNotecho\n';
+                output += 'log_flags General -DoNotecho\n';
+                output += 'log_flags InputService +DoNotecho\n\n';
             }
             
             lines.forEach((line, index) => {
@@ -658,9 +658,9 @@
 
             // Add log_flags at the end if suppress spam is enabled
             if (suppressSpam) {
-                output += '\nlog_flags Console -DoNotecholn\n';
-                output += 'log_flags General -DoNotecholn\n';
-                output += 'log_flags InputService -DoNotecholn\n';
+                output += '\nlog_flags Console -DoNotecho\n';
+                output += 'log_flags General -DoNotecho\n';
+                output += 'log_flags InputService -DoNotecho\n';
             }
 
             generatedOutput = output;
