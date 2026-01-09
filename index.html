@@ -20,6 +20,10 @@
             line-height: 1.6;
             overflow: hidden;
             position: relative;
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
         }
 
         .video-background {
@@ -33,11 +37,16 @@
         }
 
         .video-background video {
-            width: 100%;
-            height: 100%;
+            position: absolute;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             object-fit: cover;
-            opacity: 0.3;
-            pointer-events: none;
+            filter: brightness(1.2) contrast(0.9);
         }
 
         .video-fallback {
@@ -46,8 +55,9 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #1A1A1A 0%, #2A1A2A 50%, #1A2A2A 100%);
+            background: linear-gradient(135deg, #1a1a1a 0%, #000000 100%);
             z-index: -2;
+            display: none;
         }
 
         .app-container {
@@ -480,7 +490,7 @@
     <div class="app-container">
         <div class="main-content" id="mainContent">
             <div class="header">
-                <h1>CONFIG - ART</h1>
+                 <h1>CONFIG - ART</h1>
                 <p class="subtitle">nullbinds.com</p>
             </div>
 
@@ -747,15 +757,19 @@
         document.getElementById('toColor').addEventListener('input', updateGradient);
         updateGradient();
 
-        // Ensure video plays on page load
-        window.addEventListener('DOMContentLoaded', (event) => {
-            const video = document.getElementById('bg-video');
-            if (video) {
-                video.muted = true;
-                video.play().catch(e => {
-                    console.log('Video autoplay failed:', e);
-                });
-            }
+        // Video initialization - matching NULLAD implementation
+        const video = document.getElementById('bg-video');
+        const playPromise = video.play();
+        
+        if (playPromise !== undefined) {
+            playPromise.catch(error => {
+                document.querySelector('.video-fallback').style.display = 'block';
+                console.log("Video playback prevented:", error);
+            });
+        }
+        
+        video.addEventListener('error', function() {
+            document.querySelector('.video-fallback').style.display = 'block';
         });
     </script>
 </body>
